@@ -33,6 +33,7 @@ public class Permissions extends Activity {
     private String denyPosBtnTxt = DEFAULT_DENY_DIALOG_POS_BTN;
     private String denyNegBtnTxt = DEFAULT_DENY_DIALOG_NEG_BTN;
     private boolean showNegBtn = true;
+    private boolean isCancellable = true;
 
 
     /**
@@ -117,6 +118,17 @@ public class Permissions extends Activity {
     }
 
     /**
+     * This is an option parameter to provide users with an option
+     * to cancel the permission dialog. If this is false the user
+     * has no choice but to grant the permission.
+     * By default this flag will be true.
+     * */
+    public Permissions isDialogCancellable(boolean isCancellable) {
+        this.isCancellable = isCancellable;
+        return this;
+    }
+
+    /**
      * This is an option parameter to receive a callback for the
      * permission
      * */
@@ -192,6 +204,10 @@ public class Permissions extends Activity {
                    * dialog description
                    * * */
                 .setMessage(denyDialogText)
+                 /**
+                  * dialog should be cancellable
+                  * * */
+                .setCancelable(isCancellable)
                   /**
                    * dialog Positive button text
                    * * */
