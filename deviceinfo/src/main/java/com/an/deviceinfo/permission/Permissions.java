@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 public class Permissions extends Activity {
 
@@ -148,6 +149,16 @@ public class Permissions extends Activity {
         }
         if(showDenyDialog && denyDialogText == null) {
             throw new RuntimeException("You need to set a deny Dialog description message before calling Build method!");
+        }
+
+        /**
+         * Check if permission is already granted.
+         * If so, do not ask again
+         * */
+        PermissionUtils permissionUtils = new PermissionUtils(context);
+        if(permissionUtils.isPermissionGranted(permission)) {
+            Log.d(PERMISSIONS_TAG, String.format("%s permission already granted!", permission));
+            return;
         }
         ActivityCompat.requestPermissions((Activity) context, new String[]{permission}, MY_PERMISSIONS);
     }

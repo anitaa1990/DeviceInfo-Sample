@@ -18,7 +18,7 @@ public class PermissionUtils {
 
     public final boolean isPermissionGranted(String permission) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                return context.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+                return context.checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
         int hasPermission = ContextCompat.checkSelfPermission(context, permission);
         return hasPermission != PackageManager.PERMISSION_GRANTED;
     }
