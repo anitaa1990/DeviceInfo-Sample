@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +28,7 @@ import com.an.deviceinfo.device.model.Network;
 import com.an.deviceinfo.location.LocationInfo;
 import com.an.deviceinfo.location.DeviceLocation;
 import com.an.deviceinfo.permission.PermissionUtils;
-import com.an.deviceinfo.permission.Permissions;
+import com.an.deviceinfo.permission.PermissionManager;
 import com.an.deviceinfo.userapps.UserAppInfo;
 import com.an.deviceinfo.userapps.UserApps;
 import com.an.deviceinfo.usercontacts.UserContactInfo;
@@ -39,7 +38,7 @@ import com.deviceinfosample.adapter.CustomListAdapter;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permissions.PermissionCallback {
+public class MainFragment extends Fragment implements AdInfo.AdIdCallback, PermissionManager.PermissionCallback {
 
     private int position;
     private Activity mActivity;
@@ -47,7 +46,7 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permi
     private RecyclerView recyclerView;
     private CustomListAdapter adapter;
 
-    private Permissions permissionManager;
+    private PermissionManager permissionManager;
     private PermissionUtils permissionUtils;
 
     @Override
@@ -75,7 +74,7 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permi
         if(getArguments() != null) {
             position = getArguments().getInt("pos");
         }
-        permissionManager = new Permissions(this);
+        permissionManager = new PermissionManager(this);
         permissionUtils = new PermissionUtils(mActivity);
     }
 

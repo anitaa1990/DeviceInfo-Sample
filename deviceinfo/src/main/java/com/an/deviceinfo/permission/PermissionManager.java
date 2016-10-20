@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 
-public class Permissions implements DialogInterface.OnClickListener {
+public class PermissionManager implements DialogInterface.OnClickListener {
     private static boolean hasStarted = false;
 
     private final int MY_PERMISSIONS = 1012;
@@ -26,13 +26,13 @@ public class Permissions implements DialogInterface.OnClickListener {
     private PermissionUtils permissionUtils;
     private PermissionCallback permissionCallback;
 
-    public Permissions(Fragment fragment) {
+    public PermissionManager(Fragment fragment) {
         this.fragment = fragment;
         this.activity = fragment.getActivity();
         permissionUtils = new PermissionUtils(activity);
     }
 
-    public Permissions(Activity activity) {
+    public PermissionManager(Activity activity) {
         this.activity = activity;
         permissionUtils = new PermissionUtils(activity);
     }
@@ -52,7 +52,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This is the method to be called to display permission dialog
      * pass the permission string along with this method
      * */
-    public Permissions showPermissionDialog(String permission) {
+    public PermissionManager showPermissionDialog(String permission) {
         this.permission = permission;
         return this;
     }
@@ -64,7 +64,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This will be called once the user has denied the
      * permission and checked the "never show again" button
      * */
-    public Permissions withDenyDialogEnabled(boolean showDenyDialog) {
+    public PermissionManager withDenyDialogEnabled(boolean showDenyDialog) {
         this.showDenyDialog = showDenyDialog;
         return this;
     }
@@ -76,7 +76,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This will be called once the user has denied the
      * permission the first time
      * */
-    public Permissions withRationaleEnabled(boolean showRationale) {
+    public PermissionManager withRationaleEnabled(boolean showRationale) {
         this.showRationale = showRationale;
         return this;
     }
@@ -85,7 +85,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This will display the description text explaining to the users
      * why we need this permission
      * */
-    public Permissions withDenyDialogMsg(String denyDialogText) {
+    public PermissionManager withDenyDialogMsg(String denyDialogText) {
         this.denyDialogText = denyDialogText;
         return this;
     }
@@ -94,7 +94,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This is an option parameter to display the title for the
      * custom dialog. By default, it will be "Permission required"
      * */
-    public Permissions withDenyDialogTitle(String denyDialogTitle) {
+    public PermissionManager withDenyDialogTitle(String denyDialogTitle) {
         this.denyDialogTitle = denyDialogTitle;
         return this;
     }
@@ -105,7 +105,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * for the custom dialog. By default, it will be "GO TO SETTINGS"
      * This will redirect the users to the settings screen once clicked
      * */
-    public Permissions withDenyDialogPosBtnText(String denyPosBtnTxt) {
+    public PermissionManager withDenyDialogPosBtnText(String denyPosBtnTxt) {
         this.denyPosBtnTxt = denyPosBtnTxt;
         return this;
     }
@@ -114,7 +114,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This is an option parameter to display the negative button text
      * for the custom dialog. By default, it will be "Cancel"
      * */
-    public Permissions withDenyDialogNegBtnText(String denyNegBtnTxt) {
+    public PermissionManager withDenyDialogNegBtnText(String denyNegBtnTxt) {
         this.denyNegBtnTxt = denyNegBtnTxt;
         return this;
     }
@@ -124,7 +124,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * button. This is to make sure that the user has no choice but
      * to grant the permission. By default this flag will be false.
      * */
-    public Permissions withDenyDialogNegBtn(boolean showNegBtn) {
+    public PermissionManager withDenyDialogNegBtn(boolean showNegBtn) {
         this.showNegBtn = showNegBtn;
         return this;
     }
@@ -135,7 +135,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * has no choice but to grant the permission.
      * By default this flag will be true.
      * */
-    public Permissions isDialogCancellable(boolean isCancellable) {
+    public PermissionManager isDialogCancellable(boolean isCancellable) {
         this.isCancellable = isCancellable;
         return this;
     }
@@ -144,7 +144,7 @@ public class Permissions implements DialogInterface.OnClickListener {
      * This is an option parameter to receive a callback for the
      * permission
      * */
-    public Permissions withCallback(PermissionCallback permissionCallback) {
+    public PermissionManager withCallback(PermissionCallback permissionCallback) {
         this.permissionCallback = permissionCallback;
         return this;
     }
