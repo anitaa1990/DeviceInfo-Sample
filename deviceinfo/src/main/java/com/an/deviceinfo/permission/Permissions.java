@@ -1,16 +1,16 @@
 package com.an.deviceinfo.permission;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
-public class Permissions extends Activity {
+
+public class Permissions implements DialogInterface.OnClickListener {
+    private static boolean hasStarted = false;
 
     private final int MY_PERMISSIONS = 1012;
 
@@ -20,10 +20,21 @@ public class Permissions extends Activity {
     private final String DEFAULT_DENY_DIALOG_POS_BTN = "GO TO SETTINGS";
     private final String DEFAULT_DENY_DIALOG_NEG_BTN = "CANCEL";
 
-    private Context context;
+    private Activity activity;
+    private Fragment fragment;
+
+    private PermissionUtils permissionUtils;
     private PermissionCallback permissionCallback;
-    public Permissions(Context context) {
-        this.context = context;
+
+    public Permissions(Fragment fragment) {
+        this.fragment = fragment;
+        this.activity = fragment.getActivity();
+        permissionUtils = new PermissionUtils(activity);
+    }
+
+    public Permissions(Activity activity) {
+        this.activity = activity;
+        permissionUtils = new PermissionUtils(activity);
     }
 
     private String permission;
@@ -143,10 +154,15 @@ public class Permissions extends Activity {
      * and if the showDenyDialog flag is enabled, you need to pass a dialog text
      * in order to build the permissions dialog
      * */
-    public void build() {
+    public synchronized void build() {
         if(permission == null) {
             throw new RuntimeException("You need to set a permission before calling Build method!");
         }
+
+        if(permissionCallback == null) {
+            throw new RuntimeException("You need to set a permissionCallback before calling Build method!");
+        }
+
         if(showDenyDialog && denyDialogText == null) {
             throw new RuntimeException("You need to set a deny Dialog description message before calling Build method!");
         }
@@ -155,19 +171,49 @@ public class Permissions extends Activity {
          * Check if permission is already granted.
          * If so, do not ask again
          * */
-        PermissionUtils permissionUtils = new PermissionUtils(context);
         if(permissionUtils.isPermissionGranted(permission)) {
             Log.d(PERMISSIONS_TAG, String.format("%s permission already granted!", permission));
             return;
         }
-        ActivityCompat.requestPermissions((Activity) context, new String[]{permission}, MY_PERMISSIONS);
+//
+//        /**
+//         * User has denied permission and has checked the never
+//         * show again button.
+//         * Custom deny dialog is displayed
+//         * */
+//        if(showDenyDialog && !activity.shouldShowRequestPermissionRationale(permission) && showRationale) {
+//            displayDenyDialog();
+//            return;
+//        }
+
+        askPermissionDialog();
+    }
+
+    private synchronized void askPermissionDialog() {
+        if(hasStarted) return;
+        hasStarted = true;
+
+        /**
+         * onPermissionResult will only be called inside a fragment
+         * if the permission is asked in this way.
+         * We need to call fragment.requestPermissions when asking
+         * permission in a fragment
+         * */
+        if(fragment != null) {
+            fragment.requestPermissions(new String[]{permission}, MY_PERMISSIONS);
+            return;
+        }
+
+        /**
+         * If permission is not called inside a fragment and called only
+         * in the activity, then the below code is executed
+         * */
+        ActivityCompat.requestPermissions(activity, new String[]{permission}, MY_PERMISSIONS);
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public synchronized void handleResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(permissions.length == 0) return;
         String permission = permissions[0];
         switch (requestCode) {
             case MY_PERMISSIONS:
@@ -177,12 +223,13 @@ public class Permissions extends Activity {
                      * */
                     if(permissionCallback != null) permissionCallback.onPermissionGranted(permissions, grantResults);
 
-                } else if(!shouldShowRequestPermissionRationale(permission) && showRationale) {
+                } else if(activity.shouldShowRequestPermissionRationale(permission) && showRationale) {
+                    hasStarted = false;
                     /**
                      * Show permission dialog again but only if "deny show again" button is not checked by user
                      * and if the user has specifically allowed to display the permission
                      * */
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{permission}, MY_PERMISSIONS);
+                    askPermissionDialog();
 
                 } else if(showDenyDialog) {
                     /**
@@ -203,50 +250,53 @@ public class Permissions extends Activity {
         }
     }
 
-    private void displayDenyDialog() {
-        AlertDialog alertDialog = null;
-        final AlertDialog.Builder alertDialogBuilder =
-                new AlertDialog.Builder(this)
-                  /**
-                   * dialog Title
-                   * */
-                .setTitle(denyDialogTitle)
-                  /**
-                   * dialog description
-                   * * */
-                .setMessage(denyDialogText)
-                 /**
-                  * dialog should be cancellable
-                  * * */
-                .setCancelable(isCancellable)
-                  /**
-                   * dialog Positive button text
-                   * * */
-                .setPositiveButton(denyPosBtnTxt, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        /**
-                         * Open the app settings screen
-                         * * */
-                        PermissionUtils permissionUtils = new PermissionUtils(context);
-                        permissionUtils.openAppSettings();
-                    }
-                });
 
-            /**
-             * Will be displayed by default
-             * * */
-        if(showNegBtn) {
-            final AlertDialog finalAlertDialog = alertDialog;
-            alertDialogBuilder.setNegativeButton(denyNegBtnTxt, new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int which) {
-                   if(finalAlertDialog != null && finalAlertDialog.isShowing()) {
-                       finalAlertDialog.dismiss();
-                   }
-                   if(permissionCallback != null) permissionCallback.onPermissionDismissed(permission);
-               }
-           });
+    private AlertDialog alertDialog;
+    private synchronized void displayDenyDialog() {
+        AlertDialog.Builder alertDialogBuilder =
+                new AlertDialog.Builder(activity)
+                        /**
+                         * dialog Title
+                         * */
+                        .setTitle(denyDialogTitle)
+                        /**
+                         * dialog description
+                         * * */
+                        .setMessage(denyDialogText)
+                        /**
+                         * dialog should be cancellable
+                         * * */
+                        .setCancelable(isCancellable)
+                        /**
+                         * dialog Postive Button text
+                         * * */
+                        .setPositiveButton(denyPosBtnTxt, this);
+
+        /**
+         * dialog Negative Button button
+         * By default this will be displayed to the user
+         * * */
+        if (showNegBtn) {
+            alertDialogBuilder.setNegativeButton(denyNegBtnTxt, this);
         }
+
+        /**
+         * create alert dialog
+         * * */
         alertDialog = alertDialogBuilder.show();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        hasStarted = false;
+        if(alertDialog != null && alertDialog.isShowing())
+            alertDialog.dismiss();
+
+        if (which == DialogInterface.BUTTON_POSITIVE) {
+            permissionCallback.onPositiveButtonClicked(dialog, which);
+        } else if(which == DialogInterface.BUTTON_NEGATIVE) {
+            permissionCallback.onNegativeButtonClicked(dialog, which);
+        }
     }
 
 
@@ -258,5 +308,7 @@ public class Permissions extends Activity {
     public interface PermissionCallback {
         void onPermissionGranted(String[] permissions, int[] grantResults);
         void onPermissionDismissed(String permission);
+        void onPositiveButtonClicked(DialogInterface dialog, int which);
+        void onNegativeButtonClicked(DialogInterface dialog, int which);
     }
 }

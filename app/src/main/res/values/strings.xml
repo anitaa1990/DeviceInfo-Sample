@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DeviceInfoSample</string>
+    <string name="permission_location">Location permission is required to provide you with the finest information about your device</string>
 </resources>

@@ -16,11 +16,11 @@ public class PermissionUtils {
         this.context = context;
     }
 
-    public final boolean isPermissionGranted(String permission) {
+    public synchronized final boolean isPermissionGranted(String permission) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                return context.checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
+                return context.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
         int hasPermission = ContextCompat.checkSelfPermission(context, permission);
-        return hasPermission != PackageManager.PERMISSION_GRANTED;
+        return hasPermission == PackageManager.PERMISSION_GRANTED;
     }
 
     public void openAppSettings() {

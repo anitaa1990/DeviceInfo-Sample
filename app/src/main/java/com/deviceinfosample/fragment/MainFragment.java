@@ -1,11 +1,15 @@
 package com.deviceinfosample.fragment;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.an.deviceinfo.ads.Ad;
 import com.an.deviceinfo.ads.AdInfo;
@@ -23,6 +28,8 @@ import com.an.deviceinfo.device.model.Memory;
 import com.an.deviceinfo.device.model.Network;
 import com.an.deviceinfo.location.LocationInfo;
 import com.an.deviceinfo.location.DeviceLocation;
+import com.an.deviceinfo.permission.PermissionUtils;
+import com.an.deviceinfo.permission.Permissions;
 import com.an.deviceinfo.userapps.UserAppInfo;
 import com.an.deviceinfo.userapps.UserApps;
 import com.an.deviceinfo.usercontacts.UserContactInfo;
@@ -32,13 +39,16 @@ import com.deviceinfosample.adapter.CustomListAdapter;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements AdInfo.AdIdCallback {
+public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permissions.PermissionCallback {
 
     private int position;
     private Activity mActivity;
 
     private RecyclerView recyclerView;
     private CustomListAdapter adapter;
+
+    private Permissions permissionManager;
+    private PermissionUtils permissionUtils;
 
     @Override
     public void onAttach(Context context) {
@@ -65,6 +75,8 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback {
         if(getArguments() != null) {
             position = getArguments().getInt("pos");
         }
+        permissionManager = new Permissions(this);
+        permissionUtils = new PermissionUtils(mActivity);
     }
 
     @Nullable
@@ -75,8 +87,24 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         recyclerView.smoothScrollToPosition(0);
 
-        initialize();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        askPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    private void askPermission(String permission) {
+        PermissionUtils permissionUtils = new PermissionUtils(mActivity);
+        if(!permissionUtils.isPermissionGranted(permission)) {
+            permissionManager.showPermissionDialog(permission)
+                    .withCallback(this)
+                    .withDenyDialogEnabled(true)
+                    .withDenyDialogMsg(mActivity.getString(R.string.permission_location))
+                    .build();
+        } else initialize();
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -147,5 +175,40 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback {
                 recyclerView.setAdapter(adapter);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionManager.handleResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onPermissionGranted(String[] permissions, int[] grantResults) {
+        initialize();
+    }
+
+    @Override
+    public void onPermissionDismissed(String permission) {
+
+    }
+
+    @Override
+    public void onPositiveButtonClicked(DialogInterface dialog, int which) {
+        /**
+         * You can choose to open the
+         * app settings screen
+         * * */
+        permissionUtils.openAppSettings();
+        Toast.makeText(mActivity, "User has opened the settings screen", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNegativeButtonClicked(DialogInterface dialog, int which) {
+        /**
+         * The user has denied the permission!
+         * You need to handle this in your code
+         * * */
+        Toast.makeText(mActivity, "User has denied the permissions", Toast.LENGTH_LONG).show();
     }
 }
