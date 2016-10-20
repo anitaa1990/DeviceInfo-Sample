@@ -92,10 +92,27 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permi
     @Override
     public void onResume() {
         super.onResume();
-        askPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        askPermission();
     }
 
-    private void askPermission(String permission) {
+    private void askPermission() {
+        String permission = null;
+        switch (position) {
+            case 0:
+                permission = Manifest.permission.ACCESS_FINE_LOCATION;
+                break;
+            case 6:
+                permission = Manifest.permission.READ_PHONE_STATE;
+                break;
+            case 8:
+                permission = Manifest.permission.READ_CONTACTS;
+                break;
+        }
+        if(permission != null) getPermission(permission);
+        else initialize();
+    }
+
+    private void getPermission(String permission) {
         PermissionUtils permissionUtils = new PermissionUtils(mActivity);
         if(!permissionUtils.isPermissionGranted(permission)) {
             permissionManager.showPermissionDialog(permission)

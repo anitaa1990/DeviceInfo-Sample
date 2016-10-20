@@ -221,6 +221,7 @@ public class PermissionManager implements DialogInterface.OnClickListener {
                     /**
                      * Permission is granted
                      * */
+                    hasStarted = false;
                     if(permissionCallback != null) permissionCallback.onPermissionGranted(permissions, grantResults);
 
                 } else if(activity.shouldShowRequestPermissionRationale(permission) && showRationale) {
