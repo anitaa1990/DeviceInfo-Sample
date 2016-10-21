@@ -8,6 +8,19 @@ Library also provides option to ask permissions for Marshmellow devices!
 
 <img src="https://camo.githubusercontent.com/7a097bb07d47506d643804b222bb8ad2be336498/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4150492d392532422d6f72616e67652e7376673f7374796c653d666c6174" alt="API" data-canonical-src="https://img.shields.io/badge/API-9%2B-orange.svg?style=flat" style="max-width:100%;">
 
+<h2>Downloads</h2>
+You can download the aar file from the release folder in this project.</br>
+In order to import a .aar library:</br>
+1) Go to File>New>New Module</br>
+2) Select "Import .JAR/.AAR Package" and click next.</br>
+3) Enter the path to .aar file and click finish.</br>
+4) Go to File>Project Settings (Ctrl+Shift+Alt+S).</br>
+5) Under "Modules," in left menu, select "app."</br>
+6) Go to "Dependencies tab.</br>
+7) Click the green "+" in the upper right corner.</br>
+8) Select "Module Dependency"</br>
+9) Select the new module from the list.</br>
+
 <h2>Usage</h2>
 For easy use, I have split up all the device information by the following:</br>
 1. Location</br>
