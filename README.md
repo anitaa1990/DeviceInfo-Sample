@@ -174,9 +174,70 @@ List<UserContacts> userContacts = userContactInfo.getContacts();
 | Phone Type      | ```phoneType()``` | String |
 
 
+<h2>How to get Permissions for android 6+</h2>
+Easy! I have provided a small, easy wrapper for getting permissions for marshmellow devices.
 
+First, override onRequestPermissionsResult and call PermissionManager.handleResult(requestCode, permissions, grantResults);
+```
+PermissionManager permissionManager = new PermissionManager(this);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionManager.handleResult(requestCode, permissions, grantResults);
+    }
+```
 
+Now you can ask permission:
+```
+permissionManager.showPermissionDialog(permission)
+                    .withDenyDialogEnabled(true)
+                    .withDenyDialogMsg(mActivity.getString(R.string.permission_location))
+                    .withCallback(new PermissionManager.PermissionCallback() {
+                        @Override
+                        public void onPermissionGranted(String[] permissions, int[] grantResults) {
+                            //you can handle what to do when permission is granted
+                        }
 
+                        @Override
+                        public void onPermissionDismissed(String permission) {
+                           /**
+                             * user has denied the permission. We can display a custom dialog 
+                             * to user asking for permission
+                           * */
+                        }
+
+                        @Override
+                        public void onPositiveButtonClicked(DialogInterface dialog, int which) {
+                          /**
+                            * You can choose to open the
+                            * app settings screen
+                            * * */
+                              PermissionUtils permissionUtils = new PermissionUtils(this);
+                              permissionUtils.openAppSettings();
+                        }
+
+                        @Override
+                        public void onNegativeButtonClicked(DialogInterface dialog, int which) {
+                          /**
+                            * The user has denied the permission!
+                            * You need to handle this in your code
+                            * * */
+                        }
+                    })
+                    .build();
+```
+
+<h3>Various options available in PermissionManager</h3>
+| Value         | Function Name | Returns  |
+| ------------- |:-------------:| -----:|
+| To enable custom dialog when user has denied the permission    | ```withDenyDialogEnabled()``` | boolean |
+| To enable Rationale, explaining the need for the permission, the first time they have denied the permission    | ```withRationaleEnabled()``` | boolean |
+| Message to be displayed in the custom dialog   | ```withDenyDialogMsg()``` | String |
+| Title to be displayed in the custom dialog    | ```withDenyDialogTitle()``` | String |
+| Postive Button text to be displayed in the custom alert dialog    | ```withDenyDialogPosBtnText()``` | String |
+| Negative Button text to be displayed in the custom alert dialog    | ```withDenyDialogNegBtnText()``` | String |
+| Should display the negative button flag    | ```withDenyDialogNegBtn()``` | boolean |
+| Flag to cancel the dialog    | ```isDialogCancellable()``` | boolean |
 
 
 
