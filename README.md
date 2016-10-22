@@ -254,5 +254,6 @@ permissionManager.showPermissionDialog(permission)
 
 
 <h2>Created and maintained by:</h2>
-<p><a href="https://github.com/anitaa1990">Anitaa Murthy</a> (<a href="https://www.linkedin.com/in/anitaa-murthy-41531699">Anitaa</a>)</p>
+<p>Anitaa Murthy  murthyanitaa@gmail.com</p>
+<p><a href="https://twitter.com/anitaa_1990"> <img src="https://github.com/anitaa1990/DeviceInfo-Sample/blob/master/media/twitter-icon.png" alt="Twitter" style="max-width:100%;"> </a><a href="https://plus.google.com/104409749442569901352"> <img src="https://github.com/anitaa1990/DeviceInfo-Sample/blob/master/media/google-icon.png" alt="Google Plus" style="max-width:100%;"> </a><a href="https://www.linkedin.com/in/anitaa-murthy-41531699"> <img src="https://github.com/anitaa1990/DeviceInfo-Sample/blob/master/media/linkedin-icon.png" alt="Linkedin" style="max-width:100%;"> </a></p>
 
