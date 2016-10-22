@@ -253,6 +253,6 @@ permissionManager.showPermissionDialog(permission)
 | Flag to cancel the dialog    | ```isDialogCancellable()``` | boolean |
 
 
-
-
+<h2>Created and maintained by:</h2>
+<p><a href="https://github.com/anitaa1990">Anitaa Murthy</a> (<a href="https://www.linkedin.com/in/anitaa-murthy-41531699">Anitaa</a>)</p>
 
