@@ -6,6 +6,14 @@ This library provides an easy way to access all the device information without h
 
 Library also provides option to ask permissions for Marshmellow devices! 
 
+<h2>Sample App</h2>
+<p><a href="https://play.google.com/store/apps/details?id=com.deviceinfosample"><img width="150" alt="Get it on Google Play" src="https://camo.githubusercontent.com/ccb26dee92ba45c411e669aae47dcc0706471af7/68747470733a2f2f706c61792e676f6f676c652e636f6d2f696e746c2f656e5f67622f6261646765732f696d616765732f67656e657269632f656e5f62616467655f7765625f67656e657269632e706e67" data-canonical-src="https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png" style="max-width:100%;"></a></p>
+
+<p>Donwload the sample app on the Google Play Store and check out all the features</p>
+<p><a href="https://lh3.googleusercontent.com/np6mWFTBu0GFah9BhO53E2ew5RgychG79Jh9x2Yp1wX_Omb2Eal_3bIL-amWXeDQVX8=h310-rw" target="_blank"><img src="https://lh3.googleusercontent.com/np6mWFTBu0GFah9BhO53E2ew5RgychG79Jh9x2Yp1wX_Omb2Eal_3bIL-amWXeDQVX8=h310-rw" width="180" style="max-width:100%;"></a>
+<a href="https://lh3.googleusercontent.com/9q35IMOhQsRAoxCfxHsxBd2S62Ke_yXG_ivgFZwxoCQqVYEFJ7nqu11j_k0QALASYDE=h310-rw" target="_blank"><img src="https://lh3.googleusercontent.com/9q35IMOhQsRAoxCfxHsxBd2S62Ke_yXG_ivgFZwxoCQqVYEFJ7nqu11j_k0QALASYDE=h310-rw" width="180" style="max-width:100%;"></a>
+</p>
+
 <img src="https://camo.githubusercontent.com/7a097bb07d47506d643804b222bb8ad2be336498/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4150492d392532422d6f72616e67652e7376673f7374796c653d666c6174" alt="API" data-canonical-src="https://img.shields.io/badge/API-9%2B-orange.svg?style=flat" style="max-width:100%;">
 
 <h2>Downloads</h2>
