@@ -1,5 +1,7 @@
 # DeviceInfo-Sample
 
+<a href="https://android-arsenal.com/details/1/4581"><img src="https://img.shields.io/badge/Android%20Arsenal-DeviceInfo-blue.svg?style=flat" alt="Android Arsenal" data-canonical-src="https://img.shields.io/badge/Android%20Arsenal-DeviceInfo-blue.svg?style=flat" style="max-width:100%;"></a>
+
 Simple, single class wrapper to get device information from an android device.
 
 This library provides an easy way to access all the device information without having to deal with all the boilerplate stuff going on inside.
