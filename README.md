@@ -45,10 +45,12 @@ For easy use, I have split up all the device information by the following:</br>
 
 
 <h2>Location</h2>
+
 ```
 LocationInfo locationInfo = new LocationInfo(this);
 DeviceLocation location = locationInfo.getLocation();
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Latitude      | ```getLatitude()``` | Double |
@@ -62,6 +64,7 @@ DeviceLocation location = locationInfo.getLocation();
 
 <h2>Ads</h2>
 No Google play services needed!
+
 ```
 AdInfo adInfo = new AdInfo(this);
 adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
@@ -72,6 +75,7 @@ adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
                          }
                      });
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | AdvertisingId      | ```getAdvertisingId()``` | String |
@@ -79,9 +83,11 @@ adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
 
 
 <h2>App</h2>
+
 ```
 App app = new App(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | App Name      | ```getAppName()``` | String |
@@ -92,9 +98,11 @@ App app = new App(this);
 
 
 <h2>Battery</h2>
+
 ```
 Battery battery = new Battery(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Battery Percent      | ```getBatteryPercent()``` | int |
@@ -108,9 +116,11 @@ Battery battery = new Battery(this);
 
 
 <h2>Device</h2>
+
 ```
 Device device = new Device(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Release Build Version      | ```getReleaseBuildVersion()``` | String |
@@ -138,9 +148,11 @@ Device device = new Device(this);
 
 
 <h2>Memory</h2>
+
 ```
 Memory memory = new Memory(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Has External SD Card      | ```isHasExternalSDCard()``` | boolean |
@@ -152,9 +164,11 @@ Memory memory = new Memory(this);
 
 
 <h2>Network</h2>
+
 ```
 Network network = new Network(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | IMEI      | ```getIMEI()``` | String |
@@ -173,10 +187,12 @@ Network network = new Network(this);
 
 
 <h2>User Installed Apps</h2>
+
 ```
 UserAppInfo userAppInfo = new UserAppInfo(this);
 List<UserApps> userApps = userAppInfo.getInstalledApps(boolean includeSystemApps);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | App Name      | ```getAppName()``` | String |
@@ -186,10 +202,12 @@ List<UserApps> userApps = userAppInfo.getInstalledApps(boolean includeSystemApps
 
 
 <h2>User Contacts</h2>
+
 ```
 UserContactInfo userContactInfo = new UserContactInfo(mActivity);
 List<UserContacts> userContacts = userContactInfo.getContacts();
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Contact Name      | ```getDisplayName()``` | String |
@@ -251,6 +269,7 @@ permissionManager.showPermissionDialog(permission)
 ```
 
 <h3>Various options available in PermissionManager</h3>
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | To enable custom dialog when user has denied the permission    | ```withDenyDialogEnabled()``` | boolean |
