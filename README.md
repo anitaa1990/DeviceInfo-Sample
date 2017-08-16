@@ -18,6 +18,26 @@ Library also provides option to ask permissions for Marshmellow devices!
 
 <img src="https://camo.githubusercontent.com/7a097bb07d47506d643804b222bb8ad2be336498/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4150492d392532422d6f72616e67652e7376673f7374796c653d666c6174" alt="API" data-canonical-src="https://img.shields.io/badge/API-9%2B-orange.svg?style=flat" style="max-width:100%;">
 
+
+<h2>How to integrate the library in your app?</h2>
+<b>Gradle Dependecy</b></br>
+
+```gradle
+dependencies {
+        compile 'com.an.deviceinfo:deviceinfo:0.1.0'
+}
+```
+
+<b>Maven Dependecy</b></br>
+```xml
+<dependency>
+  <groupId>com.an.deviceinfo</groupId>
+  <artifactId>deviceinfo</artifactId>
+  <version>0.1.0</version>
+  <type>pom</type>
+</dependency>
+```
+
 <h2>Downloads</h2>
 You can download the aar file from the release folder in this project.</br>
 In order to import a .aar library:</br>
@@ -45,10 +65,12 @@ For easy use, I have split up all the device information by the following:</br>
 
 
 <h2>Location</h2>
+
 ```
 LocationInfo locationInfo = new LocationInfo(this);
 DeviceLocation location = locationInfo.getLocation();
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Latitude      | ```getLatitude()``` | Double |
@@ -62,6 +84,7 @@ DeviceLocation location = locationInfo.getLocation();
 
 <h2>Ads</h2>
 No Google play services needed!
+
 ```
 AdInfo adInfo = new AdInfo(this);
 adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
@@ -72,6 +95,7 @@ adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
                          }
                      });
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | AdvertisingId      | ```getAdvertisingId()``` | String |
@@ -79,9 +103,11 @@ adInfo.getAndroidAdId(new new AdInfo.AdIdCallback() {
 
 
 <h2>App</h2>
+
 ```
 App app = new App(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | App Name      | ```getAppName()``` | String |
@@ -92,9 +118,11 @@ App app = new App(this);
 
 
 <h2>Battery</h2>
+
 ```
 Battery battery = new Battery(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Battery Percent      | ```getBatteryPercent()``` | int |
@@ -108,9 +136,11 @@ Battery battery = new Battery(this);
 
 
 <h2>Device</h2>
+
 ```
 Device device = new Device(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Release Build Version      | ```getReleaseBuildVersion()``` | String |
@@ -138,9 +168,11 @@ Device device = new Device(this);
 
 
 <h2>Memory</h2>
+
 ```
 Memory memory = new Memory(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Has External SD Card      | ```isHasExternalSDCard()``` | boolean |
@@ -152,9 +184,11 @@ Memory memory = new Memory(this);
 
 
 <h2>Network</h2>
+
 ```
 Network network = new Network(this);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | IMEI      | ```getIMEI()``` | String |
@@ -173,10 +207,12 @@ Network network = new Network(this);
 
 
 <h2>User Installed Apps</h2>
+
 ```
 UserAppInfo userAppInfo = new UserAppInfo(this);
 List<UserApps> userApps = userAppInfo.getInstalledApps(boolean includeSystemApps);
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | App Name      | ```getAppName()``` | String |
@@ -186,10 +222,12 @@ List<UserApps> userApps = userAppInfo.getInstalledApps(boolean includeSystemApps
 
 
 <h2>User Contacts</h2>
+
 ```
 UserContactInfo userContactInfo = new UserContactInfo(mActivity);
 List<UserContacts> userContacts = userContactInfo.getContacts();
 ```
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | Contact Name      | ```getDisplayName()``` | String |
@@ -251,6 +289,7 @@ permissionManager.showPermissionDialog(permission)
 ```
 
 <h3>Various options available in PermissionManager</h3>
+
 | Value         | Function Name | Returns  |
 | ------------- |:-------------:| -----:|
 | To enable custom dialog when user has denied the permission    | ```withDenyDialogEnabled()``` | boolean |
