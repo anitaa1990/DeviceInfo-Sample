@@ -10,7 +10,9 @@ import android.provider.ContactsContract;
 import com.an.deviceinfo.permission.PermissionUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserContactInfo {
 
@@ -26,6 +28,7 @@ public class UserContactInfo {
             throw new RuntimeException("Access user contacts permission not granted!");
 
         List<UserContacts> contacts = new ArrayList<UserContacts>();
+        Set<String> uniqueValues = new HashSet<String>();
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         String[] projection    = new String[] {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE};
@@ -38,12 +41,15 @@ public class UserContactInfo {
 
         people.moveToFirst();
         do {
-            UserContacts contactsModel = new UserContacts();
-            contactsModel.setDisplayName(people.getString(indexName));
-            contactsModel.setMobileNumber(people.getString(indexNumber));
-            contactsModel.setPhoneType(people.getString(indexPhoneType));
+            if(!uniqueValues.contains(people.getString(indexNumber))) {
+                UserContacts contactsModel = new UserContacts();
+                contactsModel.setDisplayName(people.getString(indexName));
+                contactsModel.setMobileNumber(people.getString(indexNumber));
+                contactsModel.setPhoneType(people.getString(indexPhoneType));
 
-            contacts.add(contactsModel);
+                uniqueValues.add(people.getString(indexNumber));
+                contacts.add(contactsModel);
+            }
         } while (people.moveToNext());
 
         return contacts;
