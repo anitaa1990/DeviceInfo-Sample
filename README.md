@@ -6,7 +6,7 @@ Simple, single class wrapper to get device information from an android device.
 
 This library provides an easy way to access all the device information without having to deal with all the boilerplate stuff going on inside.
 
-<b>As part of the process of my learning kotlin, I migrated the library to support Kotlin as well. If you would like to view the Kotlin version of the library - please checkout branch<b> <i>migrate_to_kotlin</i>
+<b>As part of the process of my learning kotlin, I migrated the library to support Kotlin as well. If you would like to view the Kotlin version of the library - please checkout branch</b> <i>migrate_to_kotlin</i>
 
 Library also provides option to ask permissions for Marshmellow devices! 
 
