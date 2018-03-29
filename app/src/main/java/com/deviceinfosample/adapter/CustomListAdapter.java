@@ -210,10 +210,10 @@ public class CustomListAdapter extends RecyclerView.Adapter<CustomListAdapter.Cu
     private void handleNetworkInfo(CustomViewHolder holder, int position) {
         switch (position) {
             case 0:  holder.textView.setText("IMEI:");
-                     holder.desc.setText(((Network) object).getIMEI());
+                     holder.desc.setText(((Network) object).getImei());
                 break;
             case 1: holder.textView.setText("IMSI:");
-                    holder.desc.setText(((Network) object).getIMSI());
+                    holder.desc.setText(((Network) object).getImsi());
                 break;
             case 2: holder.textView.setText("Phone Type:");
                     holder.desc.setText(((Network) object).getPhoneType());

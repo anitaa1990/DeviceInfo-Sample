@@ -29,5 +29,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     testCompile 'junit:junit:4.12'
 //    compile project(path: ':deviceinfo')
-    compile 'com.an.deviceinfo:deviceinfo:0.1.3'
+    compile 'com.an.deviceinfo:deviceinfo:0.1.4'
 }
