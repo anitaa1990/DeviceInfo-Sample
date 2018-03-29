@@ -44,7 +44,7 @@ dependencies {
 
 ```gradle
 dependencies {
-        compile 'com.an.deviceinfo:deviceinfo:0.1.3'
+        compile 'com.an.deviceinfo:deviceinfo:0.1.4'
 }
 ```
 
@@ -53,7 +53,7 @@ dependencies {
 <dependency>
   <groupId>com.an.deviceinfo</groupId>
   <artifactId>deviceinfo</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <type>pom</type>
 </dependency>
 ```
