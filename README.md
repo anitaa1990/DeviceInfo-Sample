@@ -6,6 +6,8 @@ Simple, single class wrapper to get device information from an android device.
 
 This library provides an easy way to access all the device information without having to deal with all the boilerplate stuff going on inside.
 
+<b>As part of the process of my learning kotlin, I migrated the library to support Kotlin as well. If you would like to view the Kotlin version of the library - please checkout branch<b> <i>migrate_to_kotlin</i>
+
 Library also provides option to ask permissions for Marshmellow devices! 
 
 <h2>Sample App</h2>
@@ -20,20 +22,38 @@ Library also provides option to ask permissions for Marshmellow devices!
 
 
 <h2>How to integrate the library in your app?</h2>
-<b>Gradle Dependecy</b></br>
+<b>Gradle Dependecy - Java</b></br>
 
 ```gradle
 dependencies {
-        compile 'com.an.deviceinfo:deviceinfo:0.1.0'
+        compile 'com.an.deviceinfo:deviceinfo:0.1.3'
 }
 ```
 
-<b>Maven Dependecy</b></br>
+<b>Maven Dependecy - Java</b></br>
 ```xml
 <dependency>
   <groupId>com.an.deviceinfo</groupId>
   <artifactId>deviceinfo</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.3</version>
+  <type>pom</type>
+</dependency>
+```
+
+<b>Gradle Dependecy - Kotlin</b></br>
+
+```gradle
+dependencies {
+        compile 'com.an.deviceinfo:deviceinfo:0.1.3'
+}
+```
+
+<b>Maven Dependecy - Kotlin</b></br>
+```xml
+<dependency>
+  <groupId>com.an.deviceinfo</groupId>
+  <artifactId>deviceinfo</artifactId>
+  <version>0.1.3</version>
   <type>pom</type>
 </dependency>
 ```
