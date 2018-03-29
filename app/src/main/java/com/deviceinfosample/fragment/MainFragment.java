@@ -183,17 +183,6 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permi
     }
 
     @Override
-    public void onResponse(final Ad ad) {
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter = new CustomListAdapter(mActivity, ad);
-                recyclerView.setAdapter(adapter);
-            }
-        });
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         permissionManager.handleResult(requestCode, permissions, grantResults);
@@ -226,5 +215,16 @@ public class MainFragment extends Fragment implements AdInfo.AdIdCallback, Permi
          * You need to handle this in your code
          * * */
         Toast.makeText(mActivity, "User has denied the permissions", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(Context context, final Ad ad) {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new CustomListAdapter(mActivity, ad);
+                recyclerView.setAdapter(adapter);
+            }
+        });
     }
 }
