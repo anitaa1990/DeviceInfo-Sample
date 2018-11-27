@@ -22,38 +22,20 @@ Library also provides option to ask permissions for Marshmellow devices!
 
 
 <h2>How to integrate the library in your app?</h2>
-<b>Gradle Dependecy - Java</b></br>
+<b>Gradle Dependecy</b></br>
 
 ```gradle
 dependencies {
-        compile 'com.an.deviceinfo:deviceinfo:0.1.3'
+        implementation 'com.an.deviceinfo:deviceinfo:0.1.5'
 }
 ```
 
-<b>Maven Dependecy - Java</b></br>
+<b>Maven Dependecy</b></br>
 ```xml
 <dependency>
   <groupId>com.an.deviceinfo</groupId>
   <artifactId>deviceinfo</artifactId>
-  <version>0.1.3</version>
-  <type>pom</type>
-</dependency>
-```
-
-<b>Gradle Dependecy - Kotlin</b></br>
-
-```gradle
-dependencies {
-        compile 'com.an.deviceinfo:deviceinfo:0.1.4'
-}
-```
-
-<b>Maven Dependecy - Kotlin</b></br>
-```xml
-<dependency>
-  <groupId>com.an.deviceinfo</groupId>
-  <artifactId>deviceinfo</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <type>pom</type>
 </dependency>
 ```
