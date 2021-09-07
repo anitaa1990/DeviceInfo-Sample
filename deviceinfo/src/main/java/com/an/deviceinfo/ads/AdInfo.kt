@@ -7,15 +7,16 @@ import java.io.IOException
 class AdInfo(private val context: Context) {
 
     //Send Data to callback
-    val ad: Ad
+   val ad: Ad
         @Throws(Exception::class)
         get() {
             val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
             val advertisingId = adInfo.id
             val adDoNotTrack = adInfo.isLimitAdTrackingEnabled
-            val ad = Ad()
-            ad.isAdDoNotTrack = adDoNotTrack
-            ad.advertisingId = advertisingId
+            val ad = Ad(
+                advertisingId,
+                adDoNotTrack
+            )
             return ad
         }
 
