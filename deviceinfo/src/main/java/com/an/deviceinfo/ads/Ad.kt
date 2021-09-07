@@ -1,7 +1,6 @@
 package com.an.deviceinfo.ads
 
-class Ad {
-
-    var advertisingId: String? = null
-    var isAdDoNotTrack: Boolean = false
-}
+data class Ad(
+    var advertisingId: String?,
+    var isTrackingAdId: Boolean
+)
